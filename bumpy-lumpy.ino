@@ -19,7 +19,7 @@ int vibInput,
     micInput;
 
 // other values
-int mic_threshold = 500; // below which the publish is triggered, aka volume created by a car running over it
+int mic_threshold = 800; // below which the publish is triggered, aka volume created by a car running over it
 int state;
 char szInfo[64];
 
@@ -32,14 +32,14 @@ int
 
 void setup() {
     Serial.begin(9600);
-    
+
     state=1;
-    
+
     state_time=millis()-state_switch;
-    
+
     Particle.function("read",readMic);
     Particle.function("off",mySleep);
-    
+
     pinMode(VIB_PIN,INPUT_PULLDOWN);
     pinMode(SIGNAL_PIN,OUTPUT);
 
@@ -48,12 +48,12 @@ void setup() {
 
 void loop() {
     state_time=millis()-state_switch;
-    
+
     vibInput=digitalRead(VIB_PIN);
     micInput=readMic("");
-    
+
     state=getState();
-    
+
     if (state==3) {
         sprintf(szInfo, "%2.2f", micInput);
         Particle.publish("car",szInfo,PRIVATE);
@@ -65,10 +65,10 @@ void loop() {
     else if (state==6) {
         mySleep("");
     }
-    
+
 //    Serial.println(readMic(""));
     Serial.println(state);
-    
+
     delay(50);
 }
 
@@ -80,12 +80,12 @@ int getState() {
     // 4 is time after car threshold triggered that new cars can't be recorded (car_pass_time)
     // 5 is waiting for the next thing to happen, like a vibration to trigger.
     // 6 is when nothing has happened in a while and it is time to go to sleep in the loop.
-    
+
     if (state==0) {
         state=1;
         state_switch=millis();
     }
-    
+
     // if in state 1 and vib_off_time passes, then switch to state 2
     // if in state 1 and car threshold triggered, then output 3 (and in the loop, sense 3 and publish stuff)
 
@@ -115,16 +115,16 @@ int getState() {
         state=4;
         state_switch=millis();
     }
-    
+
     // if in state 4 and car_pass_time passes, then switch to state 5
-    
+
     else if (state==4) {
         if (state_time>car_pass_time) {
             state=5;
             state_switch=millis();
         }
     }
-    
+
     // if in state 5 and vibration occurs, then go back to state 1
     // if in state 5 and sleep_time passes, then output state 6 (and in the loop, go to sleep!)
 
@@ -153,7 +153,7 @@ int mySleep(String command) {
 
 int readMic(String command) {
     int n;
-    n   = analogRead(MIC_PIN);                        // Raw reading from mic 
+    n   = analogRead(MIC_PIN);                        // Raw reading from mic
     n   = abs(n - 512 - DC_OFFSET); // Center on zero
     n   = (n <= NOISE) ? 0 : (n - NOISE);             // Remove noise/hum
     lvl = ((lvl * 7) + n) >> 3;    // "Dampened" reading (else looks twitchy)
