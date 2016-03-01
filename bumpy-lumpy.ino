@@ -55,7 +55,7 @@ void loop() {
     state=getState();
 
     if (state==3) {
-        sprintf(szInfo, "%2.2f", micInput);
+        sprintf(szInfo, "%i", micInput);
         Particle.publish("car",szInfo,PRIVATE);
         digitalWrite(SIGNAL_PIN,HIGH);
     }
