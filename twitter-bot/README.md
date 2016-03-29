@@ -4,7 +4,10 @@
 1. `git clone https://github.com/buzzfeed-openlab/bumpy-lumpy.git`
 2. `cd ./bumpy-lumpy/bumpy-bot`
 3. `npm install`
-4. `touch config.json`, fill it out:
+4. `touch config.json`, fill it out
+5. `node bumpy-bot.js`
+
+### Sample config
 ```
 {
     "deviceId": "xxxxx",
@@ -23,4 +26,3 @@
     }
 }
 ```
-5. `node bumpy-bot.js`
