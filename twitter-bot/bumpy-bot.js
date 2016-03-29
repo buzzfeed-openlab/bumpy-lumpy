@@ -1,11 +1,12 @@
 var Particle = require('particle-api-js'),
     Twit = require('twit'),
-    config = require('./config.json'),
-    particleConfig = require('./particle-config.json'),
-    twitterConfig = require('./twitter-config.json');
+    config = require('./config.json');
 
-var particle = new Particle();
-var twit = new Twit(twitterConfig);
+var particleConfig = config.particleConfig,
+    twitterConfig = config.twitterConfig;
+
+var particle = new Particle(),
+    twit = new Twit(twitterConfig);
 
 // -------
 
