@@ -1,0 +1,23 @@
+{
+  "name": "bumpy-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bumpy-bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buzzfeed-openlab/bumpy-lumpy.git"
+  },
+  "author": "Westley Argentum Hennigh-Palermo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/buzzfeed-openlab/bumpy-lumpy/issues"
+  },
+  "homepage": "https://github.com/buzzfeed-openlab/bumpy-lumpy#readme",
+  "dependencies": {
+    "particle-api-js": "^5.2.5",
+    "twit": "^2.2.3"
+  }
+}
