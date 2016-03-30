@@ -39,6 +39,7 @@ void setup() {
 
     Particle.function("read",readMic);
     Particle.function("off",mySleep);
+    Particle.function("set",setThreshold);
 
     pinMode(VIB_PIN,INPUT_PULLDOWN);
     pinMode(SIGNAL_PIN,OUTPUT);
@@ -159,4 +160,12 @@ int readMic(String command) {
     lvl = ((lvl * 7) + n) >> 3;    // "Dampened" reading (else looks twitchy)
 //    Serial.println(lvl);
     return n;
+}
+
+int setThreshold(String command) {
+  char inputStr[64];
+  command.toCharArray(inputStr,64);
+  char *p = strtok(inputStr,",");
+  mic_threshold = atoi(p);
+  return mic_threshold;
 }
